@@ -1,0 +1,27 @@
+{
+  "name": "Datastream Network Page",
+  "authors": [
+    "Frederick Brock <fred@pubnub.com>"
+  ],
+  "description": "Realtime traffic monitoring",
+  "main": "index.html",
+  "keywords": [
+    "PubNub",
+    "real-time",
+    "dsn",
+    "realtime-traffic"
+  ],
+  "license": "MIT",
+  "homepage": "http://www.pubnub.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "handlebars": "^4.0.5"
+  }
+}

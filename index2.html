@@ -1,0 +1,71 @@
+<html>
+<head>
+   <title></title>
+   <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <script src="bower_components/pubnub/web/pubnub.js"></script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/bootstrap/dist/css/bootstrap.css"></script>
+  <script src="bower_components/handlebars/handlebars.min.js"></script>
+  <script src="bower_components/Snap.svg/dist/snap.svg.js"></script>
+
+  <script id="console-msg-template" type="text/x-handlebars-template">
+    <li class="list-group-item">
+    <div class="entry">
+        <div class="body">
+          {{body}}
+        </div>
+      </div>
+    </li>
+    </script>
+
+
+  <div id="container" >
+    <div id="bg" style="">
+
+    </div>
+    <div id="rtc-container">
+      <svg id="rtcanvas">
+      </svg>
+    </div>
+
+    <section id="footer-console">
+      <div id="message-console" class="panel panel-default">
+        <ul id="message-console-lst" class="list-group">
+        </ul>
+      </div>
+    </section>
+
+
+  </div>
+  <script>
+    (function(){
+
+      var messageEntry = $('#console-msg-template').html();
+      var consoleMessageTemplate = Handlebars.compile(messageEntry);
+
+      console.log("showing the console");
+      var pubnub = PUBNUB.init({
+        subscribe_key: 'e19f2bb0-623a-11df-98a1-fbd39d75aa3f'
+        ,ssl: true
+      });
+
+      pubnub.subscribe({
+        channel: "rts-xNjiKP4Bg4jgElhhn9v9-geo-map"
+        ,message: function(m,e,c){
+            console.log("message: " + JSON.stringify(m));
+            $('#message-console-lst').append(consoleMessageTemplate( {body: JSON.stringify(m)}));
+        }
+      });
+
+      //does this need to be done?
+      var snap = new Snap("#rtcanvas");
+      Snap.load("assets/svg/GlobeSvg.svg", function(s){
+        console.log('loadCallback');
+        snap.append(s);
+      });
+    })();
+  </script>
+</body>
