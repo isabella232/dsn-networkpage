@@ -24,10 +24,7 @@
 
   <div id="container-fluid" >
     <div id="visualization-container" class="row">
-      <div id="rtc-container" class="col-md-12">
-        <!--<svg id="rtcanvas" preserveAspectRatio="center" viewBox="-1000 -1000 1000 1000">
-
-        </svg> -->
+      <div id="rtc-container" class="col-md-12 well well-lg">
       </div>
 
       <div id="message-console" class="panel panel-default well well-lg col-md-12">
@@ -58,6 +55,7 @@
 
       //does this need to be done?
       var snap = new Snap("#rtc-container");
+      snap.attr({viewBox: "0 0 400 400", preserveAspectRatio: ""})
       Snap.load("assets/svg/GlobeSvg.svg", function(s){
         console.log('loadCallback');
         snap.add(s);

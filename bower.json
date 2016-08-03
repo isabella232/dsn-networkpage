@@ -22,6 +22,9 @@
     "tests"
   ],
   "dependencies": {
-    "handlebars": "^4.0.5"
+    "handlebars": "^4.0.5",
+    "pubnub": "^4.0.1",
+    "bootstrap": "^3.3.7",
+    "Snap.svg": "^0.4.1"
   }
 }
