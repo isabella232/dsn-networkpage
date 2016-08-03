@@ -19,27 +19,23 @@
         </div>
       </div>
     </li>
-    </script>
+  </script>
 
 
-  <div id="container" >
-    <div id="bg" style="">
+  <div id="container-fluid" >
+    <div id="visualization-container" class="row">
+      <div id="rtc-container" class="col-md-12">
+        <!--<svg id="rtcanvas" preserveAspectRatio="center" viewBox="-1000 -1000 1000 1000">
 
-    </div>
-    <div id="rtc-container" class="col-xs-12">
-      <svg id="rtcanvas" viewBox="0 0 100 100">
-      </svg>
-    </div>
-
-    <section id="footer-console">
-      <div id="message-console" class="panel panel-default">
-        <ul id="message-console-lst" class="list-group">
-        </ul>
+        </svg> -->
       </div>
-    </section>
 
-
+      <div id="message-console" class="panel panel-default well well-lg col-md-12">
+          <ul id="message-console-lst" class="list-group">
+          </ul>
+      </div>
   </div>
+
   <script>
     (function(){
 
@@ -56,15 +52,15 @@
         channel: "rts-xNjiKP4Bg4jgElhhn9v9-geo-map"
         ,message: function(m,e,c){
             console.log("message: " + JSON.stringify(m));
-            $('#message-console-lst').append(consoleMessageTemplate( {body: JSON.stringify(m)}));
+            //$('#message-console-lst').append(consoleMessageTemplate( {body: JSON.stringify(m)}));
         }
       });
 
       //does this need to be done?
-      var snap = new Snap("#rtcanvas");
+      var snap = new Snap("#rtc-container");
       Snap.load("assets/svg/GlobeSvg.svg", function(s){
         console.log('loadCallback');
-        snap.append(s);
+        snap.add(s);
       });
     })();
   </script>
