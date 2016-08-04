@@ -7,7 +7,6 @@
 <body>
   <script src="bower_components/pubnub/dist/web/pubnub.js"></script>
   <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/bootstrap/dist/css/bootstrap.css"></script>
   <script src="bower_components/handlebars/handlebars.min.js"></script>
   <script src="bower_components/Snap.svg/dist/snap.svg.js"></script>
 
@@ -17,8 +16,6 @@
         <div class="body">
           {{body}}
         </div>
-      </div>
-    </li>
   </script>
 
 
@@ -36,10 +33,12 @@
   <script>
     (function(){
 
+
       var messageEntry = $('#console-msg-template').html();
+      var visualizationContainer = $('#rtc-container');
+
       var consoleMessageTemplate = Handlebars.compile(messageEntry);
 
-      console.log("showing the console");
       var pubnub = new PubNub({
         subscribeKey: 'e19f2bb0-623a-11df-98a1-fbd39d75aa3f'
         ,ssl: true
@@ -47,19 +46,23 @@
 
       pubnub.addListener({
         message: function(m){
-            console.log("message: " + JSON.stringify(m));
-            //$('#message-console-lst').append(consoleMessageTemplate( {body: JSON.stringify(m)}));
+            //var latLong = JSON.stringify(localStorage.put("encodedLatLong");
+            $('#message-console-lst').append(consoleMessageTemplate( {body: JSON.stringify(m)}));
         }
       });
 
       pubnub.subscribe({channels: ["rts-xNjiKP4Bg4jgElhhn9v9-geo-map"]});
 
-      //does this need to be done?
       var snap = new Snap("#rtc-container");
-      snap.attr({viewBox: "-100 -100 400 400", preserveAspectRatio: ""})
+      var canvas = new Snap(800,600);
+      canvas.attr({height: "100%", width: "100%", viewBox: "0 0 1900 1900"});
+
       Snap.load("assets/svg/GlobeSvg.svg", function(s){
-        console.log('loadCallback');
-        snap.add(s);
+              console.log('loading....');
+              var globalGroup = canvas.g(s);
+              //globalGroup.attr({"transform": "scale(-.025, -.025)"});
+              canvas.append(globalGroup);
+              snap.append(canvas);
       });
     })();
   </script>
