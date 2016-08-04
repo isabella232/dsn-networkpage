@@ -35,8 +35,6 @@
 
 
       var messageEntry = $('#console-msg-template').html();
-      var visualizationContainer = $('#rtc-container');
-
       var consoleMessageTemplate = Handlebars.compile(messageEntry);
 
       var pubnub = new PubNub({
@@ -55,14 +53,13 @@
 
       var snap = new Snap("#rtc-container");
       var canvas = new Snap(800,600);
+      snap.add(canvas);
       canvas.attr({height: "100%", width: "100%", viewBox: "0 0 1900 1900"});
 
       Snap.load("assets/svg/GlobeSvg.svg", function(s){
               console.log('loading....');
-              var globalGroup = canvas.g(s);
-              //globalGroup.attr({"transform": "scale(-.025, -.025)"});
-              canvas.append(globalGroup);
-              snap.append(canvas);
+              canvas.add(s);
+              canvas.circle(10,10,10);
       });
     })();
   </script>
