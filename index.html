@@ -24,6 +24,21 @@
       <div id="rtc-container" class="col-md-12 well well-lg">
       </div>
 
+      <div id="toolbar" class="btn-group" role="group">
+        <button type="button" id="btnIncrease" class="btn btn-default">+</button>
+        <button type="button" id="btnDecrease" class="btn btn-default">-</button>
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Attribute
+              <span class="caret"></span>
+          </button>
+
+          <ul class="dropdown-menu">
+            <li><a id="viewport" href="#">ViewBox</a></li>
+          </ul>
+        </div>
+      </div>
+
       <div id="message-console" class="panel panel-default well well-lg col-md-12">
           <ul id="message-console-lst" class="list-group">
           </ul>
@@ -32,7 +47,6 @@
 
   <script>
     (function(){
-
 
       var messageEntry = $('#console-msg-template').html();
       var consoleMessageTemplate = Handlebars.compile(messageEntry);
@@ -52,14 +66,18 @@
       pubnub.subscribe({channels: ["rts-xNjiKP4Bg4jgElhhn9v9-geo-map"]});
 
       var snap = new Snap("#rtc-container");
-      var canvas = new Snap(800,600);
-      snap.add(canvas);
-      canvas.attr({height: "100%", width: "100%", viewBox: "0 0 1900 1900"});
 
+      var canvasHeight = window.innerHeight;
+      var canvasWidth =  window.innerWidth;
+
+      var canvas = new Snap(canvasWidth,canvasHeight);
+      snap.add(canvas);
       Snap.load("assets/svg/GlobeSvg.svg", function(s){
               console.log('loading....');
+              s.select("g").attr({"transform": 'scale(.025,.025)'});
+              //var g = s.el("g");
               canvas.add(s);
-              canvas.circle(10,10,10);
+
       });
     })();
   </script>
